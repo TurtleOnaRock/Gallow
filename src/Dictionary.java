@@ -8,18 +8,21 @@ public class Dictionary {
 
     private List<String> dictionary;
     private final Random numGenerator;
+    private final int volume;
 
-    public Dictionary(Path dict, long seed) {
+    public Dictionary(Path pathToDictionary)
+    {
         try {
-            this.dictionary = Files.readAllLines(dict);
+            this.dictionary = Files.readAllLines(pathToDictionary);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.numGenerator = new Random(seed);
+        this.numGenerator = new Random(System.currentTimeMillis());
+        this.volume = dictionary.size();
     }
 
-    public String getWord(){
-        return this.dictionary.get(this.numGenerator.nextInt(34011));
+    public String getWord()
+    {
+        return this.dictionary.get(this.numGenerator.nextInt(volume));
     }
-
 }
